@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastrar Livro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body style="background-color: blue; justify-self: center;">
+  <h1 style="background-color: black;" class="text-light">Cadastrar Livro</h1>
+  <form class="form-horizontal">
+    <fieldset>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label text-light" for="Título">Título</label>  
+      <div class="col-md-5">
+      <input id="Título" name="Título" type="text" placeholder="Escreva um título..." class="form-control input-md">   
+      </div>
+    </div><br>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label text-light" for="Autor">Autor</label>  
+      <div class="col-md-5">
+      <input id="Autor" name="Autor" type="text" placeholder="Escreva o Autor..." class="form-control input-md">  
+      </div>
+    </div><br>   
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label text-light" for="Ano de publicação">Ano de publicação</label>  
+      <div class="col-md-5">
+      <input id="Ano de publicação" name="Ano de publicação" type="text" placeholder="Ano de publicação..." class="form-control input-md">    
+      </div>
+    </div><br>
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label text-light" for="Categoria">Categoria</label>
+      <div class="col-md-5">
+        <select id="Categoria" name="Categoria" class="form-control">
+          <option value="1">Drama</option>
+          <option value="2">Suspense</option>
+          <option value="3">Terror</option>
+          <option value="4">Fantasia</option>
+          <option value="">Ficção Científica</option>
+        </select>
+      </div>
+    </div><br>
+    <!-- Button -->
+    <div class="form-group">
+      <div class="col-md-4">
+        <button id="Cadastrar" name="Cadastrar" class="btn btn-success text-light">Cadastrar</button>
+      </div>
+    </div>
+    </fieldset>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    const form = document.getElementById('cadastrarLivroForm');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const data = new FormData(form);
+
+      fetch('http://localhost:3000/livros', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(data)),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Livro cadastrado com sucesso!');
+        // Você pode redirecionar o usuário para outra página ou fazer qualquer ação necessária aqui.
+      })
+      .catch(error => {
+        console.error('Erro ao cadastrar livro:', error);
+      });
+    });
+  </script>
+</body>
+</html>
